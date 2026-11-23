@@ -2,7 +2,7 @@
 
 Run [Open WebUI](https://github.com/open-webui/open-webui), the self-hosted AI chat app, on Railway. A ChatGPT-style alternative to ChatGPT, Claude.ai and Gemini that you control: chat with OpenAI, Claude through OpenRouter, Groq or any OpenAI-compatible API, upload documents, and share the instance with your team.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/open-webui?utm_medium=integration&utm_source=template&utm_campaign=open-webui)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/VpKaxf?utm_medium=integration&utm_source=template&utm_campaign=open-webui)
 
 ## What you get
 
