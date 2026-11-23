@@ -1,0 +1,56 @@
+{
+  "name": "Open WebUI | Self-Hosted AI Chat (ChatGPT Alternative)",
+  "description": "Open WebUI: self-hosted ChatGPT-style chat for OpenAI, Claude or any OpenAI API. Admin set at deploy, tested updates.",
+  "category": "AI/ML",
+  "services": {
+    "72cdb615-b723-4603-a932-c5dc0cba92ba": {
+      "name": "Open WebUI",
+      "source": {
+        "repo": "railhost/open-webui-railway",
+        "branch": "main"
+      },
+      "deploy": {
+        "healthcheckPath": "/health"
+      },
+      "variables": {
+        "WEBUI_ADMIN_EMAIL": {
+          "defaultValue": "admin@localhost",
+          "description": "Login email for the admin account, created on the first boot. Change it later in Admin Panel → Users.",
+          "isOptional": false
+        },
+        "WEBUI_ADMIN_PASSWORD": {
+          "defaultValue": "${{secret(32)}}",
+          "description": "Password for the admin account. Only read on the first boot; change it later under Settings → Account.",
+          "isOptional": false
+        },
+        "WEBUI_SECRET_KEY": {
+          "defaultValue": "${{secret(64)}}",
+          "description": "Signs logins and encrypts saved API keys. Changing it signs everyone out.",
+          "isOptional": false
+        },
+        "WEBUI_URL": {
+          "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+          "description": "Public URL of the app, used in links and for sign-in providers. Set it to your own domain if you add one.",
+          "isOptional": false
+        },
+        "OPENAI_API_KEY": {
+          "defaultValue": "",
+          "description": "Optional. An OpenAI API key to connect on the first boot. You can add OpenAI, OpenRouter or any OpenAI-compatible API later in Admin Panel → Settings → Connections.",
+          "isOptional": true
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>:8080": {
+            "port": 8080
+          }
+        }
+      },
+      "volumeMounts": {
+        "72cdb615-b723-4603-a932-c5dc0cba92ba": {
+          "mountPath": "/data"
+        }
+      }
+    }
+  }
+}

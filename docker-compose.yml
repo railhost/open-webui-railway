@@ -1,0 +1,39 @@
+# Local copy of the Railway setup: Open WebUI with its volume, plus a stand-in
+# for the OpenAI API (scripts/fake-openai.py) so a chat can run without a key.
+# Used by scripts/smoke-test.sh. The values below are for local testing only.
+name: open-webui-smoke
+
+services:
+  fake-openai:
+    image: python:3.13-slim
+    command: ["python", "-I", "/srv/fake-openai.py"]
+    environment:
+      FAKE_OPENAI_KEY: smoke-openai-key
+    volumes:
+      - ./scripts/fake-openai.py:/srv/fake-openai.py:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  open-webui:
+    build: .
+    image: open-webui-smoke:latest
+    depends_on:
+      fake-openai:
+        condition: service_healthy
+    ports:
+      - "${SMOKE_PORT:-39400}:8080"
+    environment:
+      WEBUI_ADMIN_EMAIL: ${SMOKE_ADMIN_EMAIL:-admin@example.com}
+      WEBUI_ADMIN_PASSWORD: ${SMOKE_ADMIN_PASSWORD:-smoke-admin-password}
+      WEBUI_SECRET_KEY: ${SMOKE_SECRET_KEY:-smoke-secret-key}
+      WEBUI_URL: http://127.0.0.1:${SMOKE_PORT:-39400}
+      OPENAI_API_BASE_URL: http://fake-openai:8000/v1
+      OPENAI_API_KEY: smoke-openai-key
+    volumes:
+      - data:/data
+
+volumes:
+  data:
