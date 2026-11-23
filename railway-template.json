@@ -1,6 +1,6 @@
 {
   "name": "Open WebUI | Self-Hosted AI Chat (ChatGPT Alternative)",
-  "description": "Open WebUI: self-hosted ChatGPT-style chat for OpenAI, Claude or any OpenAI API. Admin set at deploy, tested updates.",
+  "description": "Self-hosted ChatGPT-style AI chat for OpenAI, Claude or any OpenAI API",
   "category": "AI/ML",
   "services": {
     "72cdb615-b723-4603-a932-c5dc0cba92ba": {
