@@ -6,7 +6,7 @@
 # The additions: an unprivileged user, data on the Railway volume at /data, and
 # docker-entrypoint.sh, which fixes volume ownership and makes sure an admin
 # account exists before the server takes its first request.
-ARG OPEN_WEBUI_VERSION=0.13.4
+ARG OPEN_WEBUI_VERSION=0.13.5
 FROM ghcr.io/open-webui/open-webui:v${OPEN_WEBUI_VERSION}
 
 # The upstream image runs as root. Open WebUI writes to its static folders at
